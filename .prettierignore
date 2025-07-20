@@ -1,0 +1,14 @@
+# Ignore files from formatting
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.cache/
+*.log
+*.tsbuildinfo
+.DS_Store
+.env*
+!.env.example
+CHANGELOG.md

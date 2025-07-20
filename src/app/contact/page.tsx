@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import type { ContactForm, FormSubmitHandler, InputChangeHandler } from "@/types";
+import { SectionErrorBoundary, ComponentErrorBoundary, AsyncErrorBoundary } from "@/components/error-boundaries";
 
 export default function Contact() {
   const [formData, setFormData] = useState<ContactForm>({
@@ -13,9 +14,26 @@ export default function Contact() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+
+  const validateForm = () => {
+    const errors: { [key: string]: string } = {};
+    if (!formData.name.trim()) errors.name = "Please enter your name.";
+    if (!formData.email.trim()) {
+      errors.email = "Please enter your email address.";
+    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!formData.subject.trim()) errors.subject = "Please enter a subject.";
+    if (!formData.message.trim()) errors.message = "Please enter your message.";
+    return errors;
+  };
 
   const handleSubmit: FormSubmitHandler = async (e) => {
     e.preventDefault();
+    const errors = validateForm();
+    setFormErrors(errors);
+    if (Object.keys(errors).length > 0) return;
     setIsSubmitting(true);
 
     // Simulate form submission
@@ -24,6 +42,7 @@ export default function Contact() {
     // Reset form
     setFormData({ name: "", email: "", subject: "", message: "" });
     setIsSubmitting(false);
+    setFormErrors({});
 
     // Show success message (you would typically handle this with a toast or notification)
     alert("Thank you for your message! I'll get back to you soon.");
@@ -78,50 +97,59 @@ export default function Contact() {
   return (
     <div className="pt-16 min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
-              Get In Touch
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              I&apos;m always interested in new opportunities and exciting projects.
-              Whether you have a question or just want to say hi, feel free to drop me a line!
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <SectionErrorBoundary sectionName="Contact Hero">
+        <section className="py-20 bg-muted/50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-4"
+            >
+              <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
+                Get In Touch
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                I&apos;m always interested in new opportunities and exciting projects.
+                Whether you have a question or just want to say hi, feel free to drop me a line!
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      </SectionErrorBoundary>
 
       {/* Contact Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="space-y-8"
-            >
-              <div>
-                <h2 className="text-3xl font-bold text-foreground mb-4">
-                  Send Me a Message
-                </h2>
-                <p className="text-muted-foreground">
-                  Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
-                </p>
-              </div>
+      <SectionErrorBoundary sectionName="Contact Content">
+        <section className="py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Contact Form */}
+              <AsyncErrorBoundary resetKeys={[JSON.stringify(formData), String(isSubmitting)]}>
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                  className="space-y-8"
+                >
+                  <div>
+                    <h2 className="text-3xl font-bold text-foreground mb-4">
+                      Send Me a Message
+                    </h2>
+                    <p className="text-muted-foreground">
+                      Have a project in mind? Let&apos;s discuss how we can work together to bring your ideas to life.
+                    </p>
+                  </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-labelledby="contact-form-title">
+                {/* ARIA live region for form validation messages */}
+                <div aria-live="polite" id="form-status" className="sr-only">
+                  {Object.values(formErrors).length > 0 &&
+                    Object.values(formErrors).map((msg, i) => <span key={i}>{msg}</span>)}
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                      Name
+                      Name <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="text"
@@ -130,13 +158,18 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       required
+                      aria-invalid={!!formErrors.name}
+                      aria-describedby={formErrors.name ? "name-error" : undefined}
                       className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       placeholder="Your name"
                     />
+                    {formErrors.name && (
+                      <p id="name-error" className="mt-1 text-sm text-destructive">{formErrors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                      Email
+                      Email <span className="text-destructive">*</span>
                     </label>
                     <input
                       type="email"
@@ -145,14 +178,19 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       required
+                      aria-invalid={!!formErrors.email}
+                      aria-describedby={formErrors.email ? "email-error" : undefined}
                       className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                       placeholder="your.email@example.com"
                     />
+                    {formErrors.email && (
+                      <p id="email-error" className="mt-1 text-sm text-destructive">{formErrors.email}</p>
+                    )}
                   </div>
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
-                    Subject
+                    Subject <span className="text-destructive">*</span>
                   </label>
                   <input
                     type="text"
@@ -161,13 +199,18 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
+                    aria-invalid={!!formErrors.subject}
+                    aria-describedby={formErrors.subject ? "subject-error" : undefined}
                     className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent"
                     placeholder="What's this about?"
                   />
+                  {formErrors.subject && (
+                    <p id="subject-error" className="mt-1 text-sm text-destructive">{formErrors.subject}</p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                    Message
+                    Message <span className="text-destructive">*</span>
                   </label>
                   <textarea
                     id="message"
@@ -176,9 +219,14 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     rows={6}
+                    aria-invalid={!!formErrors.message}
+                    aria-describedby={formErrors.message ? "message-error" : undefined}
                     className="w-full px-3 py-2 border border-input bg-background rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent resize-vertical"
                     placeholder="Tell me about your project..."
                   />
+                  {formErrors.message && (
+                    <p id="message-error" className="mt-1 text-sm text-destructive">{formErrors.message}</p>
+                  )}
                 </div>
                 <button
                   type="submit"
@@ -199,14 +247,16 @@ export default function Contact() {
                 </button>
               </form>
             </motion.div>
+          </AsyncErrorBoundary>
 
             {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="space-y-8"
-            >
+            <ComponentErrorBoundary componentName="Contact Information">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="space-y-8"
+              >
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-4">
                   Contact Information
@@ -268,9 +318,11 @@ export default function Contact() {
                 </div>
               </div>
             </motion.div>
+          </ComponentErrorBoundary>
           </div>
         </div>
       </section>
+    </SectionErrorBoundary>
     </div>
   );
 }

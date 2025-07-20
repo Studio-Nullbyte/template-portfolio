@@ -1,6 +1,31 @@
 # Portfolio Website Template
 
-A modern, responsive portfolio website template built with Next.js, TypeScript, and Tailwind CSS. Perfect for web designers, developers, and creative professionals to showcase their work and skills.
+<div align="center">
+
+![Next.js](https://img.shields.io/badge/Next.js-15.4-black?style=for-the-badge&logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwind-css)
+![MIT License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+[![CI/CD](https://github.com/Studio-Nullbyte/template-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/Studio-Nullbyte/template-portfolio/actions/workflows/ci.yml)
+[![Deploy](https://github.com/Studio-Nullbyte/template-portfolio/actions/workflows/deploy.yml/badge.svg)](https://github.com/Studio-Nullbyte/template-portfolio/actions/workflows/deploy.yml)
+
+**A modern, responsive portfolio website template built with Next.js, TypeScript, and Tailwind CSS.**
+
+[View Demo](https://template-portfolio-demo.vercel.app) • 
+[Getting Started](#-quick-start) • 
+[Documentation](DOCS.md) • 
+[Quick Start Guide](QUICKSTART.md)
+
+</div>
+
+## 📸 Preview
+
+<div align="center">
+  <img src="https://via.placeholder.com/800x400/262626/ffffff?text=Desktop+Preview" alt="Desktop Preview" width="800"/>
+  <br/>
+  <img src="https://via.placeholder.com/300x600/262626/ffffff?text=Mobile+Preview" alt="Mobile Preview" width="300"/>
+</div>
 
 ## ✨ Features
 
@@ -23,46 +48,64 @@ A modern, responsive portfolio website template built with Next.js, TypeScript, 
 - **UI Components**: [Headless UI](https://headlessui.com/)
 - **Utilities**: [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Use as Template (Recommended)
 
-- Node.js 18.0 or later
-- npm, yarn, pnpm, or bun
-
-### Installation
-
-1. Clone the repository:
+1. Click the **"Use this template"** button at the top of this repository
+2. Create a new repository from this template
+3. Clone your new repository:
 ```bash
-git clone <your-repo-url>
-cd template-portfolio-workspace
+git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+cd YOUR_REPO_NAME
 ```
 
-2. Install dependencies:
+### Option 2: Fork or Clone
+
+```bash
+# Fork this repository, then clone your fork
+git clone https://github.com/YOUR_USERNAME/template-portfolio.git
+cd template-portfolio
+
+# Or clone directly (for contribution)
+git clone https://github.com/Studio-Nullbyte/template-portfolio.git
+cd template-portfolio
+```
+
+### Installation & Setup
+
+1. Install dependencies:
 ```bash
 npm install
 # or
 yarn install
 # or
 pnpm install
-# or
-bun install
 ```
 
-3. Run the development server:
+2. Copy environment variables:
+```bash
+cp .env.example .env.local
+```
+
+3. Start the development server:
 ```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) to see your portfolio!
 
-## 📁 Project Structure
+## 📖 Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Get up and running in 5 minutes
+- **[Full Documentation](DOCS.md)** - Complete API and customization guide
+- **[Contributing](CONTRIBUTING.md)** - How to contribute to this project
+
+## 🛠️ Built With
 
 ```
 src/

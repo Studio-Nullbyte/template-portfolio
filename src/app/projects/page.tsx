@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { ProjectCategory } from "@/types";
 import { projects } from "@/data/projects";
+import { SectionErrorBoundary, ComponentErrorBoundary, AsyncErrorBoundary } from "@/components/error-boundaries";
 
 const categories: { label: string; value: ProjectCategory | "all" }[] = [
   { label: "All", value: "all" },
@@ -26,37 +27,41 @@ export default function Projects() {
   return (
     <div className="pt-16 min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-muted/50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="space-y-4"
-          >
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
-              My Projects
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              A collection of projects that showcase my skills in web development, mobile app development, and design. Each project represents a unique challenge and learning experience.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+      <SectionErrorBoundary sectionName="Projects Hero">
+        <section className="py-20 bg-muted/50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-4"
+            >
+              <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
+                My Projects
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                A collection of projects that showcase my skills in web development, mobile app development, and design. Each project represents a unique challenge and learning experience.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      </SectionErrorBoundary>
 
       {/* Projects Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Category Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center justify-center mb-12"
-          >
-            <div className="flex items-center space-x-4">
-              <Filter className="h-5 w-5 text-muted-foreground" />
-              <div className="flex flex-wrap gap-2">
+      <SectionErrorBoundary sectionName="Projects Gallery">
+        <section className="py-20">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Category Filter */}
+            <ComponentErrorBoundary componentName="Project Filter">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="flex items-center justify-center mb-12"
+              >
+                <div className="flex items-center space-x-4">
+                  <Filter className="h-5 w-5 text-muted-foreground" />
+                  <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <button
                     key={category.value}
@@ -73,9 +78,11 @@ export default function Projects() {
               </div>
             </div>
           </motion.div>
+        </ComponentErrorBoundary>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AsyncErrorBoundary resetKeys={[activeCategory, String(filteredProjects.length)]}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -166,8 +173,10 @@ export default function Projects() {
               <p className="text-muted-foreground">No projects found in this category.</p>
             </motion.div>
           )}
+        </AsyncErrorBoundary>
         </div>
       </section>
+    </SectionErrorBoundary>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { PageErrorBoundary, SectionErrorBoundary } from "@/components/error-boundaries";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,17 +49,29 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
+        {/* Skip to content link for keyboard users */}
+        <a href="#main-content" className="sr-only focus:not-sr-only absolute top-2 left-2 z-50 bg-primary text-primary-foreground px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+          Skip to main content
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Navigation />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <PageErrorBoundary pageName="Portfolio Layout">
+            <header>
+              <SectionErrorBoundary sectionName="Navigation">
+                <Navigation variant="header" />
+              </SectionErrorBoundary>
+            </header>
+            <main id="main-content" className="min-h-screen">
+              {children}
+            </main>
+            <SectionErrorBoundary sectionName="Footer">
+              <Footer />
+            </SectionErrorBoundary>
+          </PageErrorBoundary>
         </ThemeProvider>
       </body>
     </html>
