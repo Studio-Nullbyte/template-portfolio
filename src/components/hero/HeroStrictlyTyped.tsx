@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import type { 
-  HeroProps, 
-  ForwardedRef, 
+import type {
+  HeroProps,
+  ForwardedRef,
   AnimationVariants,
-  ButtonClickHandler 
+  ButtonClickHandler
 } from '@/types';
 
 // Strict animation variants for different hero types
@@ -58,7 +58,7 @@ export const HeroStrictlyTyped = forwardRef<HTMLElement, HeroProps>(
             )}
           >
             <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10" />
-            
+
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
               <div className="text-center space-y-8">
                 <motion.div

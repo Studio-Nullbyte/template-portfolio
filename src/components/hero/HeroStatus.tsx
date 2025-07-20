@@ -17,7 +17,7 @@ export function HeroStatus({ resumeUrl }: HeroStatusProps) {
         <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
         <span>Available for freelance</span>
       </div>
-      <a 
+      <a
         href={resumeUrl}
         download
         className="flex items-center space-x-2 cursor-pointer hover:text-primary transition-colors"

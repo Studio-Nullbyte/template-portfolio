@@ -30,10 +30,10 @@ interface AsyncErrorBoundaryProps {
 /**
  * Page-level error boundary for catching errors across entire pages
  */
-export function PageErrorBoundary({ 
-  children, 
+export function PageErrorBoundary({
+  children,
   pageName = 'Page',
-  onError 
+  onError
 }: PageErrorBoundaryProps): ReactElement {
   return (
     <ErrorBoundary
@@ -50,10 +50,10 @@ export function PageErrorBoundary({
 /**
  * Section-level error boundary for catching errors in page sections
  */
-export function SectionErrorBoundary({ 
-  children, 
+export function SectionErrorBoundary({
+  children,
   sectionName = 'Section',
-  onError 
+  onError
 }: SectionErrorBoundaryProps): ReactElement {
   const fallback = (
     <div className="flex flex-col items-center justify-center p-6 min-h-[150px] bg-muted/50 border border-border rounded-lg">
@@ -85,10 +85,10 @@ export function SectionErrorBoundary({
 /**
  * Component-level error boundary for catching errors in individual components
  */
-export function ComponentErrorBoundary({ 
-  children, 
+export function ComponentErrorBoundary({
+  children,
   componentName = 'Component',
-  onError 
+  onError
 }: ComponentErrorBoundaryProps): ReactElement {
   const fallback = (
     <div className="flex items-center justify-center p-4 bg-muted/30 border border-dashed border-border rounded">
@@ -114,8 +114,8 @@ export function ComponentErrorBoundary({
 /**
  * Async error boundary for components that handle async operations
  */
-export function AsyncErrorBoundary({ 
-  children, 
+export function AsyncErrorBoundary({
+  children,
   fallback,
   onError,
   resetKeys = []
@@ -165,7 +165,7 @@ export function withErrorBoundary<P extends object>(
   );
 
   WrappedComponent.displayName = `withErrorBoundary(${Component.displayName || Component.name || 'Component'})`;
-  
+
   return WrappedComponent;
 }
 

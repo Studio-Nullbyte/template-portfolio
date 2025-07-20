@@ -2,11 +2,11 @@
 
 import React, { useState } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { 
-  ComponentErrorBoundary, 
-  SectionErrorBoundary, 
-  AsyncErrorBoundary, 
-  useErrorHandler 
+import {
+  ComponentErrorBoundary,
+  SectionErrorBoundary,
+  AsyncErrorBoundary,
+  useErrorHandler
 } from '@/components/error-boundaries';
 
 // Component that throws errors for testing
@@ -21,7 +21,7 @@ function ErrorThrowingComponent({ shouldThrow }: { shouldThrow: boolean }) {
 function AsyncComponent({ shouldFail }: { shouldFail: boolean }) {
   const [data, setData] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  
+
   const fetchData = async () => {
     setLoading(true);
     try {
@@ -46,7 +46,7 @@ function AsyncComponent({ shouldFail }: { shouldFail: boolean }) {
       {data ? (
         <p>{data}</p>
       ) : (
-        <button 
+        <button
           onClick={fetchData}
           className="px-4 py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90"
         >
@@ -60,13 +60,13 @@ function AsyncComponent({ shouldFail }: { shouldFail: boolean }) {
 // Manual error trigger component
 function ManualErrorComponent() {
   const handleError = useErrorHandler();
-  
+
   const triggerError = () => {
     handleError(new Error('Manually triggered error'));
   };
 
   return (
-    <button 
+    <button
       onClick={triggerError}
       className="px-4 py-2 bg-destructive text-destructive-foreground rounded hover:bg-destructive/90"
     >
@@ -100,15 +100,15 @@ export default function ErrorBoundaryDemo() {
                 <button
                   onClick={() => setShowComponentError(!showComponentError)}
                   className={`px-4 py-2 rounded font-medium transition-colors ${
-                    showComponentError 
-                      ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' 
+                    showComponentError
+                      ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'
                       : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
                   }`}
                 >
                   {showComponentError ? 'Hide Error' : 'Show Component Error'}
                 </button>
               </div>
-              
+
               <ComponentErrorBoundary componentName="Test Component">
                 <ErrorThrowingComponent shouldThrow={showComponentError} />
               </ComponentErrorBoundary>
@@ -123,15 +123,15 @@ export default function ErrorBoundaryDemo() {
                 <button
                   onClick={() => setShowAsyncError(!showAsyncError)}
                   className={`px-4 py-2 rounded font-medium transition-colors ${
-                    showAsyncError 
-                      ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' 
+                    showAsyncError
+                      ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90'
                       : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
                   }`}
                 >
                   {showAsyncError ? 'Disable Async Error' : 'Enable Async Error'}
                 </button>
               </div>
-              
+
               <AsyncErrorBoundary resetKeys={[String(showAsyncError)]}>
                 <AsyncComponent shouldFail={showAsyncError} />
               </AsyncErrorBoundary>
@@ -145,7 +145,7 @@ export default function ErrorBoundaryDemo() {
               <p className="text-muted-foreground">
                 Use the useErrorHandler hook to manually trigger error boundaries.
               </p>
-              
+
               <ComponentErrorBoundary componentName="Manual Error Test">
                 <ManualErrorComponent />
               </ComponentErrorBoundary>

@@ -74,7 +74,7 @@ export default function About() {
                   </button>
                 </motion.div>
               </ComponentErrorBoundary>
-              
+
               <ComponentErrorBoundary componentName="About Image">
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}

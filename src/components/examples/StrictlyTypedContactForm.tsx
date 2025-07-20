@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormField } from '@/components/forms/FormField';
 import { useContactForm, useAsync } from '@/hooks';
-import type { 
-  ContactForm, 
-  ApiResponse, 
+import type {
+  ContactForm,
+  ApiResponse,
   ButtonClickHandler,
-  FormSubmitHandler 
+  FormSubmitHandler
 } from '@/types';
 
 /**
@@ -37,7 +37,7 @@ export function StrictlyTypedContactForm() {
   // Strictly typed event handlers
   const handleSubmit: FormSubmitHandler<ContactForm> = async (event, data) => {
     event.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -52,11 +52,11 @@ export function StrictlyTypedContactForm() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data),
         });
-        
+
         if (!response.ok) {
           throw new Error('Failed to submit form');
         }
-        
+
         return response.json();
       });
 
@@ -85,7 +85,7 @@ export function StrictlyTypedContactForm() {
   };
 
   return (
-    <form 
+    <form
       onSubmit={(e) => handleSubmit(e, formData)}
       className="max-w-md mx-auto space-y-6 p-6 bg-card rounded-lg border"
       noValidate

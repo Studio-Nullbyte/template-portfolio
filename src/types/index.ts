@@ -375,7 +375,7 @@ export interface UseFormValidationReturn<T> {
   readonly isValid: boolean;
   readonly isDirty: boolean;
   readonly touchedFields: Partial<Record<keyof T, boolean>>;
-  
+
   readonly setIsSubmitting: (loading: boolean) => void;
   readonly handleChange: (field: keyof T, value: string) => void;
   readonly handleBlur: (field: keyof T) => void;

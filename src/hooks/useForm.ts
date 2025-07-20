@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
-import type { 
-  ContactForm, 
-  UseFormValidationReturn, 
-  ValidationError, 
-  FormValidationResult 
+import type {
+  ContactForm,
+  UseFormValidationReturn,
+  ValidationError,
+  FormValidationResult
 } from '@/types';
 
 /**
@@ -41,7 +41,7 @@ export function useFormValidation<T extends Record<string, any>>(
 
   const handleChange = useCallback((field: keyof T, value: string): void => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Clear error for this field when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
@@ -50,7 +50,7 @@ export function useFormValidation<T extends Record<string, any>>(
 
   const handleBlur = useCallback((field: keyof T): void => {
     setTouchedFields(prev => ({ ...prev, [field]: true }));
-    
+
     // Validate field on blur
     const error = validateField(field, formData[field]);
     if (error) {
@@ -148,14 +148,14 @@ export function validateContactForm(data: ContactForm): FormValidationResult {
   (Object.keys(data) as Array<keyof ContactForm>).forEach((field) => {
     const validator = contactFormValidation[field];
     const error = validator(data[field]);
-    
+
     if (error) {
       let code: ValidationError['code'] = 'invalid_format';
-      
+
       if (error.includes('enter')) code = 'required';
       else if (error.includes('at least')) code = 'too_short';
       else if (error.includes('less than')) code = 'too_long';
-      
+
       errors.push({
         field,
         message: error,

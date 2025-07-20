@@ -18,7 +18,7 @@ export default function ContactRefactored() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
@@ -28,10 +28,10 @@ export default function ContactRefactored() {
     try {
       // Simulate form submission
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       // Reset form on success
       resetForm();
-      
+
       // Show success message (you would typically handle this with a toast or notification)
       alert("Thank you for your message! I'll get back to you soon.");
     } catch (error) {
@@ -110,7 +110,7 @@ export default function ContactRefactored() {
               <h2 className="text-2xl font-semibold text-foreground mb-6">
                 Send me a message
               </h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                 <FormField
                   label="Name"

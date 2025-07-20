@@ -19,8 +19,8 @@ export function MobileMenu({ isOpen, items }: MobileMenuProps) {
           className="md:hidden overflow-hidden"
         >
           <div className="px-2 pt-2 pb-3 bg-background/95 backdrop-blur-sm rounded-lg mt-2 border">
-            <NavLinks 
-              items={items} 
+            <NavLinks
+              items={items}
               orientation="vertical"
             />
           </div>

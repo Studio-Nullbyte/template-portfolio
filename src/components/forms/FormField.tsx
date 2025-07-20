@@ -33,7 +33,7 @@ const getInputProps = (props: FormFieldProps) => {
         maxLength: props.maxLength,
         pattern: props.pattern,
       };
-    
+
     case 'number':
       return {
         ...baseProps,
@@ -42,7 +42,7 @@ const getInputProps = (props: FormFieldProps) => {
         max: props.max,
         step: props.step,
       };
-    
+
     case 'textarea':
       return {
         ...baseProps,
@@ -93,14 +93,14 @@ export const FormField = forwardRef<
         {label}
         {required && <span className="text-red-500 ml-1" aria-label="required">*</span>}
       </label>
-      
+
       <Component
         ref={ref as any} // Type assertion needed due to union type
         {...inputProps}
         onChange={handleChange}
         className={fieldClasses}
       />
-      
+
       {error && (
         <p id={`${name}-error`} className="text-sm text-red-600" role="alert">
           {error}

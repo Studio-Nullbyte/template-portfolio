@@ -13,7 +13,7 @@ const defaultNavItems: NavItem[] = [
   { name: "Contact", href: "/contact" },
 ];
 
-export function Navigation({ 
+export function Navigation({
   items = defaultNavItems,
   className = "",
   showLogo = true
@@ -44,9 +44,9 @@ export function Navigation({
           {/* Theme Toggle & Mobile Menu Button */}
           <div className="flex items-center space-x-4">
             <ThemeToggle />
-            <MobileMenuButton 
-              isOpen={isOpen} 
-              onToggle={toggleMenu} 
+            <MobileMenuButton
+              isOpen={isOpen}
+              onToggle={toggleMenu}
             />
           </div>
         </div>

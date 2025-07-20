@@ -20,7 +20,7 @@ export function ProjectsSection() {
   return (
     <section id="projects" className="py-20 bg-muted/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader 
+        <SectionHeader
           title="Featured Projects"
           description="Here are some of my recent projects that showcase my skills and passion for creating exceptional digital experiences."
         />
@@ -32,7 +32,7 @@ export function ProjectsSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <CategoryFilter 
+          <CategoryFilter
             categories={categories}
             activeCategory={activeCategory}
             onCategoryChange={setCategory}

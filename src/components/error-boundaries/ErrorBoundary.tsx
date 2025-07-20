@@ -42,7 +42,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    
+
     this.state = {
       hasError: false,
       error: null,
@@ -54,7 +54,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
     // Generate unique error ID for tracking
     const errorId = `error_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
+
     return {
       hasError: true,
       error,
@@ -64,7 +64,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     const { onError, name = 'Unknown' } = this.props;
-    
+
     // Create detailed error object
     const errorDetails: ErrorDetails = {
       message: error.message,
@@ -109,7 +109,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       const hasResetKeyChanged = resetKeys.some(
         (key, index) => key !== prevProps.resetKeys?.[index]
       );
-      
+
       if (hasResetKeyChanged) {
         this.resetErrorBoundary();
       }
@@ -135,7 +135,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       //   headers: { 'Content-Type': 'application/json' },
       //   body: JSON.stringify(errorDetails),
       // });
-      
+
       console.log('Error reported:', errorDetails);
     } catch (reportingError) {
       console.error('Failed to report error:', reportingError);
@@ -181,12 +181,12 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             {errorTitle}
           </h2>
         </div>
-        
+
         <div className="text-center space-y-4 max-w-md">
           <p className="text-muted-foreground">
             Something went wrong in the {name.toLowerCase()}. We've logged the error and our team has been notified.
           </p>
-          
+
           {process.env.NODE_ENV === 'development' && error && (
             <details className="text-left bg-muted p-4 rounded border">
               <summary className="cursor-pointer font-medium text-sm mb-2">
@@ -201,7 +201,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               </p>
             </details>
           )}
-          
+
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={this.handleRetry}
@@ -210,7 +210,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
               <RefreshCw className="h-4 w-4" />
               Try Again
             </button>
-            
+
             {level === 'page' && (
               <>
                 <button
@@ -220,7 +220,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
                   <RefreshCw className="h-4 w-4" />
                   Reload Page
                 </button>
-                
+
                 <button
                   onClick={this.handleGoHome}
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-muted text-muted-foreground hover:bg-muted/80 rounded-md font-medium transition-colors"

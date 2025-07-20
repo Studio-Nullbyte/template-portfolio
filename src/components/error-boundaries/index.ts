@@ -1,5 +1,5 @@
 export { ErrorBoundary } from './ErrorBoundary';
-export { 
+export {
   PageErrorBoundary,
   SectionErrorBoundary,
   ComponentErrorBoundary,

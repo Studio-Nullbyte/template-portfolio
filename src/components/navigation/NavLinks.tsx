@@ -10,17 +10,17 @@ interface NavLinksProps {
   orientation?: 'horizontal' | 'vertical';
 }
 
-export function NavLinks({ 
-  items, 
+export function NavLinks({
+  items,
   className,
   linkClassName,
-  orientation = 'horizontal' 
+  orientation = 'horizontal'
 }: NavLinksProps) {
   const pathname = usePathname();
 
   const containerClasses = cn(
-    orientation === 'horizontal' 
-      ? "flex items-center space-x-8" 
+    orientation === 'horizontal'
+      ? "flex items-center space-x-8"
       : "flex flex-col space-y-1",
     className
   );

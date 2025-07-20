@@ -5,12 +5,12 @@ export { useMobileNavigation, useScrollDetection, useSmoothScroll } from './useN
 export { useFormValidation, useContactForm, validateContactForm } from './useForm';
 
 // Utility hooks
-export { 
-  useProjectFilter, 
-  useModal, 
-  useAsync, 
-  useDebounce, 
+export {
+  useProjectFilter,
+  useModal,
+  useAsync,
+  useDebounce,
   useLocalStorage,
   useErrorBoundaryState,
-  useSafeAsync 
+  useSafeAsync
 } from './useUtils';

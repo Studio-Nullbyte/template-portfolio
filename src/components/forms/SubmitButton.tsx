@@ -8,11 +8,11 @@ interface SubmitButtonProps {
   children?: React.ReactNode;
 }
 
-export function SubmitButton({ 
-  isSubmitting, 
-  disabled = false, 
+export function SubmitButton({
+  isSubmitting,
+  disabled = false,
   className,
-  children = "Send Message" 
+  children = "Send Message"
 }: SubmitButtonProps) {
   return (
     <button

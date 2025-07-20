@@ -70,7 +70,7 @@ export function useScrollDetection(threshold: number = 50): boolean {
 
     // Add event listener with passive option for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, [threshold]);
 
@@ -88,8 +88,8 @@ export function useSmoothScroll() {
         console.warn(`useSmoothScroll: Element with id "${elementId}" not found`);
         return false;
       }
-      
-      element.scrollIntoView({ 
+
+      element.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
         inline: 'nearest'
@@ -103,10 +103,10 @@ export function useSmoothScroll() {
 
   const scrollToTop = useCallback((): void => {
     try {
-      window.scrollTo({ 
-        top: 0, 
+      window.scrollTo({
+        top: 0,
         left: 0,
-        behavior: 'smooth' 
+        behavior: 'smooth'
       });
     } catch (error) {
       console.error('useSmoothScroll: Error scrolling to top', error);

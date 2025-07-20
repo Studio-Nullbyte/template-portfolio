@@ -1,10 +1,10 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { 
-  UseProjectFilterReturn, 
-  UseModalReturn, 
-  AsyncState, 
+import type {
+  UseProjectFilterReturn,
+  UseModalReturn,
+  AsyncState,
   LoadingState,
-  Project 
+  Project
 } from '@/types';
 
 /**
@@ -169,12 +169,12 @@ export function useAsync<T, E = Error>(): {
     });
   }, []);
 
-  const loadingState: LoadingState = state.loading 
-    ? 'loading' 
-    : state.error 
-    ? 'error' 
-    : state.data 
-    ? 'success' 
+  const loadingState: LoadingState = state.loading
+    ? 'loading'
+    : state.error
+    ? 'error'
+    : state.data
+    ? 'success'
     : 'idle';
 
   return {
@@ -228,7 +228,7 @@ export function useLocalStorage<T>(
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
-      
+
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
