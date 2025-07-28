@@ -1,3 +1,8 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-issue-config.json
+# GitHub Issue Template Configuration
+# This file configures the issue template chooser that appears when someone opens a new issue
+# Documentation: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
 blank_issues_enabled: false
 contact_links:
   - name: 📚 Documentation
@@ -6,3 +11,12 @@ contact_links:
   - name: 💬 Discussions
     url: https://github.com/Studio-Nullbyte/template-portfolio/discussions
     about: For general questions and community discussions
+  - name: 🛡️ Error Boundaries Guide
+    url: https://github.com/Studio-Nullbyte/template-portfolio/blob/main/ERROR_BOUNDARIES_IMPLEMENTATION.md
+    about: Comprehensive guide to error handling and boundaries
+  - name: 🎯 TypeScript Guide
+    url: https://github.com/Studio-Nullbyte/template-portfolio/blob/main/STRICT_TYPING.md
+    about: Learn about discriminated unions and type safety
+  - name: 🚀 Quick Start
+    url: https://github.com/Studio-Nullbyte/template-portfolio/blob/main/QUICKSTART.md
+    about: Get up and running in 5 minutes
