@@ -184,7 +184,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
         <div className="text-center space-y-4 max-w-md">
           <p className="text-muted-foreground">
-            Something went wrong in the {name.toLowerCase()}. We've logged the error and our team has been notified.
+            Something went wrong in the {name.toLowerCase()}. We&apos;ve logged the error and our team has been notified.
           </p>
 
           {process.env.NODE_ENV === 'development' && error && (

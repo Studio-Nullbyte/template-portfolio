@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import {
   ComponentErrorBoundary,
   SectionErrorBoundary,
@@ -88,7 +88,7 @@ export default function ErrorBoundaryDemo() {
               Error Boundary Demo
             </h1>
             <p className="text-lg text-muted-foreground">
-              Demonstration of React Error Boundaries in action. Test different error scenarios to see how they're handled gracefully.
+              Demonstration of React Error Boundaries in action. Test different error scenarios to see how they&apos;re handled gracefully.
             </p>
           </div>
 

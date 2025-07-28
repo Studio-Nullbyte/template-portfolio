@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import type {
-  UseProjectFilterReturn,
   UseModalReturn,
   AsyncState,
   LoadingState,
@@ -119,7 +118,7 @@ export function useModal(): UseModalReturn {
 /**
  * Custom hook for managing async operations with strict typing
  */
-export function useAsync<T, E = Error>(): {
+export function useAsync<T>(): {
   readonly state: AsyncState<T>;
   readonly execute: (asyncFn: () => Promise<T>) => Promise<T | null>;
   readonly reset: () => void;
@@ -270,14 +269,14 @@ export function useErrorBoundaryState() {
 /**
  * Custom hook for safe async operations with error boundaries
  */
-export function useSafeAsync<T, E = Error>(): {
+export function useSafeAsync<T>(): {
   readonly state: AsyncState<T>;
   readonly execute: (asyncFn: () => Promise<T>) => Promise<T | null>;
   readonly reset: () => void;
   readonly loadingState: LoadingState;
   readonly errorBoundaryKey: number;
 } {
-  const asyncHook = useAsync<T, E>();
+  const asyncHook = useAsync<T>();
   const { errorBoundaryKey, resetErrorBoundary } = useErrorBoundaryState();
 
   // Reset error boundary when async operation fails

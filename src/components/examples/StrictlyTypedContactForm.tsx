@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { FormField } from '@/components/forms/FormField';
 import { useContactForm, useAsync } from '@/hooks';
@@ -21,7 +20,6 @@ export function StrictlyTypedContactForm() {
     isValid,
     isDirty,
     handleChange,
-    handleBlur,
     validateForm,
     resetForm,
     setIsSubmitting,
@@ -29,7 +27,7 @@ export function StrictlyTypedContactForm() {
 
   // Using strictly typed async hook
   const {
-    state: { data, loading, error },
+    state: { data, error },
     execute: submitForm,
     loadingState,
   } = useAsync<ApiResponse<{ message: string }>>();

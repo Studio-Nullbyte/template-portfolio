@@ -7,40 +7,33 @@ const defaultSocialLinks: SocialLink[] = [
   {
     name: "GitHub",
     url: "https://github.com",
-    icon: "Github",
+    icon: Github,
   },
   {
     name: "LinkedIn",
     url: "https://linkedin.com",
-    icon: "Linkedin",
+    icon: Linkedin,
   },
   {
     name: "Twitter",
     url: "https://twitter.com",
-    icon: "Twitter",
+    icon: Twitter,
   },
   {
     name: "Email",
     url: "mailto:contact@example.com",
-    icon: "Mail",
+    icon: Mail,
   },
 ];
 
-const iconMap = {
-  Github,
-  Linkedin,
-  Twitter,
-  Mail,
-} as const;
-
-export function Footer({ 
+export function Footer({
   className = "",
   showSocials = true,
-  copyrightText 
+  copyrightText
 }: FooterProps = {}) {
   const currentYear = new Date().getFullYear();
   const defaultCopyright = `© ${currentYear} Portfolio. All rights reserved. Built with Next.js & Tailwind CSS.`;
-  
+
   return (
     <footer className={cn("bg-background border-t", className)}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -85,7 +78,7 @@ export function Footer({
               <h3 className="text-lg font-semibold text-foreground">Connect</h3>
               <div className="flex space-x-4">
                 {defaultSocialLinks.map((link: SocialLink) => {
-                  const Icon = iconMap[link.icon as keyof typeof iconMap];
+                  const Icon = link.icon;
                   return (
                     <a
                       key={link.name}

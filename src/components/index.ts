@@ -22,3 +22,4 @@ export {
 
 // UI components
 export { SafeImage, Avatar, ProjectImage } from './ui/SafeImage';
+export { default as ProjectGallery } from './project-gallery';

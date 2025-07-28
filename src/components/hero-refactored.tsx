@@ -17,12 +17,32 @@ const defaultProps: DefaultHeroProps = {
   resumeUrl: "/resume.pdf"
 };
 
-export function Hero({
-  name = defaultProps.name,
-  title = defaultProps.title,
-  description = defaultProps.description,
-  resumeUrl = defaultProps.resumeUrl
-}: HeroProps = {}) {
+export function Hero(props: HeroProps = { variant: 'default' }) {
+  // Extract common properties
+  const { variant = 'default' } = props;
+
+  // Handle discriminated union properly
+  let name: string, title: string, description: string, resumeUrl: string;
+
+  if (variant === 'default') {
+    const defaultVariantProps = props as Extract<HeroProps, { variant: 'default' }>;
+    name = defaultVariantProps.name ?? defaultProps.name;
+    title = defaultVariantProps.title ?? defaultProps.title;
+    description = defaultVariantProps.description ?? defaultProps.description;
+    resumeUrl = defaultVariantProps.resumeUrl ?? defaultProps.resumeUrl;
+  } else if (variant === 'minimal') {
+    const minimalVariantProps = props as Extract<HeroProps, { variant: 'minimal' }>;
+    name = minimalVariantProps.name;
+    title = minimalVariantProps.title;
+    description = defaultProps.description; // Minimal variant doesn't have description
+    resumeUrl = defaultProps.resumeUrl; // Minimal variant doesn't have resumeUrl
+  } else {
+    // Custom variant - should not reach here in this component
+    name = defaultProps.name;
+    title = defaultProps.title;
+    description = defaultProps.description;
+    resumeUrl = defaultProps.resumeUrl;
+  }
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background gradient */}
