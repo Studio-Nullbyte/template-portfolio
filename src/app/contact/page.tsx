@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
-import type { ContactForm, FormSubmitHandler, InputChangeHandler } from "@/types";
+import type { ContactForm } from "@/types";
 import { SectionErrorBoundary, ComponentErrorBoundary, AsyncErrorBoundary } from "@/components/error-boundaries";
 
 export default function Contact() {
@@ -29,7 +29,7 @@ export default function Contact() {
     return errors;
   };
 
-  const handleSubmit: FormSubmitHandler = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateForm();
     setFormErrors(errors);
@@ -48,7 +48,7 @@ export default function Contact() {
     alert("Thank you for your message! I'll get back to you soon.");
   };
 
-  const handleChange: InputChangeHandler = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,

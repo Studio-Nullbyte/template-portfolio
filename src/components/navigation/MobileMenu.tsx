@@ -4,7 +4,7 @@ import type { NavItem } from "@/types";
 
 interface MobileMenuProps {
   isOpen: boolean;
-  items: NavItem[];
+  items: readonly NavItem[];
 }
 
 export function MobileMenu({ isOpen, items }: MobileMenuProps) {

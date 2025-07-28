@@ -35,7 +35,27 @@
 - **Performance**: Optimized with Next.js 15 and modern web standards
 - **SEO Ready**: Built-in SEO optimization with proper meta tags
 - **Accessibility**: WCAG compliant with proper ARIA labels and keyboard navigation
-- **Type Safe**: Full TypeScript support for better development experience
+- **Type Safe**: Full TypeScript support with discriminated unions for better development experience
+- **Error Boundaries**: Comprehensive error handling system with graceful fallbacks
+- **Image Reliability**: Smart image loading with automatic fallbacks for broken URLs
+- **Demo Page**: Interactive demo page to test error boundaries and image components (`/demo`)
+
+## 🛡️ Error Handling & Reliability
+
+This template includes a robust error handling system:
+
+- **Multi-Level Protection**: Page, section, and component-level error boundaries
+- **Graceful Degradation**: Errors in one component don't crash the entire application
+- **Smart Image Loading**: Automatic fallbacks for broken images using reliable image services
+- **Development Feedback**: Clear error information in development mode
+- **Production Ready**: User-friendly error messages in production
+
+## 🖼️ Image Management
+
+- **SafeImage Component**: Automatic fallback handling for broken images
+- **Avatar Component**: Specialized for user profile images with DiceBear API integration
+- **ProjectImage Component**: Optimized for project screenshots with placeholder generation
+- **Reliable Services**: Uses DiceBear and Picsum for consistent fallback images
 
 ## 🛠️ Built With
 
@@ -47,6 +67,8 @@
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **UI Components**: [Headless UI](https://headlessui.com/)
 - **Utilities**: [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)
+- **Image Services**: [DiceBear API](https://dicebear.com/), [Picsum](https://picsum.photos/)
+- **Error Handling**: Custom React Error Boundaries with TypeScript discriminated unions
 
 ## 🚀 Quick Start
 
@@ -105,7 +127,7 @@ pnpm dev
 - **[Full Documentation](DOCS.md)** - Complete API and customization guide
 - **[Contributing](CONTRIBUTING.md)** - How to contribute to this project
 
-## 🛠️ Built With
+## 🛠️ Project Structure
 
 ```
 src/
@@ -113,20 +135,29 @@ src/
 │   ├── about/            # About page
 │   ├── contact/          # Contact page
 │   ├── projects/         # Projects page
+│   ├── demo/             # Error boundaries & image demo page
 │   ├── globals.css       # Global styles
-│   ├── layout.tsx        # Root layout
+│   ├── layout.tsx        # Root layout with error boundaries
 │   └── page.tsx          # Home page
 ├── components/           # Reusable React components
-│   ├── footer.tsx        # Footer component
-│   ├── hero.tsx          # Hero section
-│   ├── navigation.tsx    # Navigation bar
+│   ├── error-boundaries/ # Error boundary components
+│   │   ├── ErrorBoundary.tsx       # Main error boundary
+│   │   └── SpecificErrorBoundaries.tsx  # Specialized boundaries
+│   ├── ui/              # UI components
+│   │   └── SafeImage.tsx # Image components with fallbacks
+│   ├── navigation/      # Navigation components
+│   ├── footer.tsx       # Footer component
+│   ├── hero.tsx         # Hero section with variants
+│   ├── navigation.tsx   # Navigation bar
 │   ├── projects-section.tsx  # Projects showcase
 │   ├── theme-provider.tsx    # Theme context provider
 │   └── theme-toggle.tsx      # Dark/light mode toggle
-├── lib/                  # Utility functions
-│   └── utils.ts          # Helper functions
-└── types/                # TypeScript type definitions
-    └── index.ts          # Common types
+├── data/                # Static data
+│   └── projects.ts      # Project information
+├── lib/                 # Utility functions
+│   └── utils.ts         # Helper functions & image utilities
+└── types/               # TypeScript type definitions
+    └── index.ts         # Discriminated unions & common types
 ```
 
 ## 🎨 Customization
@@ -163,12 +194,122 @@ The color scheme is defined in `tailwind.config.ts` and `src/app/globals.css`. Y
 4. **Skills and Experience**: Edit the data in:
    - `src/app/about/page.tsx`
 
+## 🎨 Customization
+
+### Colors and Theme
+
+The color scheme is defined in `tailwind.config.ts` and `src/app/globals.css`. You can customize the colors by modifying the CSS custom properties:
+
+```css
+:root {
+  --primary: 262.1 83.3% 57.8%;    /* Primary color */
+  --secondary: 210 40% 96%;        /* Secondary color */
+  --background: 0 0% 100%;         /* Background color */
+  --foreground: 222.2 84% 4.9%;    /* Text color */
+  /* ... more colors */
+}
+```
+
+### Content
+
+1. **Personal Information**: Update the name, title, and bio in:
+   - `src/components/hero.tsx` (defaultProps object)
+   - `src/app/about/page.tsx`
+   - `src/components/footer.tsx`
+
+2. **Projects**: Modify the projects array in:
+   - `src/data/projects.ts`
+
+3. **Contact Information**: Update contact details in:
+   - `src/app/contact/page.tsx`
+   - `src/components/footer.tsx`
+
+4. **Skills and Experience**: Edit the data in:
+   - `src/app/about/page.tsx`
+
+### Using Component Variants
+
+This template uses TypeScript discriminated unions for type-safe component variants:
+
+```tsx
+// Hero component variants
+<Hero variant="default" />                    // Full hero with all features
+<Hero variant="minimal" name="John" title="Developer" />  // Minimal hero
+<Hero variant="custom">                       // Custom hero with children
+  <CustomContent />
+</Hero>
+
+// Skills section variants
+<SkillsSection variant="categories" />        // Grouped by categories
+<SkillsSection variant="grid" />             // Grid layout
+<SkillsSection variant="list" />             // List layout
+
+// Testimonials variants
+<TestimonialsSection variant="carousel" />   // Carousel display
+<TestimonialsSection variant="grid" />       // Grid display
+```
+
+### Error Boundaries
+
+Wrap components for error isolation:
+
+```tsx
+import { PageErrorBoundary, SectionErrorBoundary, ComponentErrorBoundary } from '@/components/error-boundaries';
+
+// Page level protection
+<PageErrorBoundary>
+  <YourPage />
+</PageErrorBoundary>
+
+// Section level protection
+<SectionErrorBoundary sectionName="Projects">
+  <ProjectsSection />
+</SectionErrorBoundary>
+
+// Component level protection
+<ComponentErrorBoundary componentName="User Avatar">
+  <Avatar src={user.avatar} name={user.name} />
+</ComponentErrorBoundary>
+```
+
+### Safe Image Components
+
+Use the provided image components for reliable image loading:
+
+```tsx
+import { SafeImage, Avatar, ProjectImage } from '@/components/ui/SafeImage';
+
+// Safe image with automatic fallbacks
+<SafeImage
+  src="https://example.com/image.jpg"
+  alt="Description"
+  width={400}
+  height={300}
+  fallbackType="placeholder"
+/>
+
+// Avatar with automatic generation
+<Avatar
+  src={user.avatarUrl}     // Optional - will generate if missing
+  name={user.name}         // Used for fallback generation
+  size={64}
+/>
+
+// Project image with project-specific fallbacks
+<ProjectImage
+  src={project.imageUrl}
+  title={project.title}
+  width={600}
+  height={400}
+/>
+```
+
 ### Images
 
-Replace placeholder images with your own:
-- Add images to the `public` folder
-- Update image paths in the components
-- Use Next.js Image component for optimization
+The template includes smart image handling:
+- **Automatic Fallbacks**: Broken images are replaced with generated alternatives
+- **Reliable Services**: Uses DiceBear for avatars and Picsum for placeholders
+- **Utility Functions**: Helper functions in `src/lib/utils.ts` for image generation
 
 ## 📱 Pages
 
@@ -176,8 +317,27 @@ Replace placeholder images with your own:
 - **About** (`/about`): Personal information, skills, and experience
 - **Projects** (`/projects`): Complete portfolio with filtering
 - **Contact** (`/contact`): Contact form and information
+- **Demo** (`/demo`): Interactive demo for testing error boundaries and image components
 
 ## 🌟 Key Features Details
+
+### Error Boundaries
+- Multi-level error isolation (Page, Section, Component)
+- Graceful degradation with user-friendly error messages
+- Development vs production error display
+- Retry functionality for recoverable errors
+
+### Image Reliability
+- Automatic fallback for broken images
+- DiceBear API integration for consistent avatars
+- Picsum service for reliable placeholder images
+- Smart image components with error handling
+
+### Type Safety
+- Discriminated unions for component variants
+- Strict TypeScript typing throughout
+- Type-safe form handling
+- Compile-time error prevention
 
 ### Theme Switching
 - Automatic system preference detection
@@ -200,6 +360,7 @@ Replace placeholder images with your own:
 - Code splitting and lazy loading
 - Minimal bundle size
 - Fast loading times
+- Error boundary isolation prevents cascading failures
 
 ## 🚀 Deployment
 
@@ -217,7 +378,22 @@ This is a standard Next.js application and can be deployed to:
 - Railway
 - DigitalOcean App Platform
 
-## 📄 License
+## � Documentation
+
+- **[Quick Start Guide](QUICKSTART.md)** - Get up and running in 5 minutes
+- **[Error Boundaries Implementation](ERROR_BOUNDARIES_IMPLEMENTATION.md)** - Comprehensive error handling guide
+- **[Strict Typing Guide](STRICT_TYPING.md)** - TypeScript discriminated unions and type safety
+- **[Full Documentation](DOCS.md)** - Complete API and customization guide
+- **[Contributing](CONTRIBUTING.md)** - How to contribute to this project
+
+## 🧪 Testing
+
+Visit `/demo` in your browser to test:
+- Error boundary functionality with controllable error states
+- Image component behavior with working and broken URLs
+- Different component variants and error scenarios
+
+## �📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
 
@@ -231,21 +407,12 @@ If you have any questions or need help customizing the template, please open an 
 
 ---
 
-Built with ❤️ using Next.js and Tailwind CSS
+Built with ❤️ using Next.js, TypeScript, and Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Key Implementation Highlights:**
+- 🛡️ **Robust Error Handling**: Comprehensive error boundary system
+- 🖼️ **Smart Image Loading**: Automatic fallbacks for reliability
+- 🎯 **Type Safety**: Discriminated unions for compile-time correctness
+- 🎨 **Modern Design**: Professional UI with smooth animations
+- 📱 **Responsive**: Mobile-first design approach
+- ⚡ **Performance**: Optimized for speed and reliability

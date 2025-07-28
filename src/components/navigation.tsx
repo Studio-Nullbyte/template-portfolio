@@ -11,13 +11,21 @@ const defaultNavItems: NavItem[] = [
   { name: "About", href: "/about" },
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
+  { name: "Demo", href: "/demo" },
 ];
 
-export function Navigation({
-  items = defaultNavItems,
-  className = "",
-  showLogo = true
-}: NavigationProps = {}) {
+export function Navigation(props: NavigationProps) {
+  // Type guard to ensure we're working with header variant
+  if (props.variant !== 'header') {
+    throw new Error('Navigation component only supports header variant');
+  }
+
+  const {
+    items = defaultNavItems,
+    className = "",
+    showLogo = true,
+    sticky = true
+  } = props;
   const { isOpen, toggleMenu } = useMobileNavigation();
   const scrolled = useScrollDetection(50);
 

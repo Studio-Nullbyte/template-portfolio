@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
-import Image from "next/image";
+import { Avatar } from "./ui/SafeImage";
 import type { TestimonialsSectionProps, Testimonial } from "@/types";
 
 const defaultTestimonials: Testimonial[] = [
@@ -13,7 +13,8 @@ const defaultTestimonials: Testimonial[] = [
     company: "TechCorp Inc.",
     content: "Alex delivered an outstanding website that exceeded our expectations. The attention to detail and user experience is remarkable. Our conversion rate increased by 40% after the redesign.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah&backgroundColor=b6e3f4&radius=50",
+    date: "2024-03-15",
   },
   {
     id: "2",
@@ -22,7 +23,8 @@ const defaultTestimonials: Testimonial[] = [
     company: "StartupXYZ",
     content: "Working with Alex was a game-changer for our business. The mobile app they developed is intuitive, fast, and our users love it. Highly recommend for any development project.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael&backgroundColor=c084fc&radius=50",
+    date: "2024-02-28",
   },
   {
     id: "3",
@@ -31,15 +33,21 @@ const defaultTestimonials: Testimonial[] = [
     company: "Creative Agency",
     content: "Alex's design skills are exceptional. They transformed our brand identity and created a cohesive visual language that perfectly represents our company. Professional and creative.",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily&backgroundColor=fbbf24&radius=50",
+    date: "2024-01-20",
   },
 ];
 
 export function TestimonialsSection({
-  testimonials = defaultTestimonials,
+  variant,
   title = "What Clients Say",
-  description = "Hear from some of the amazing clients I've had the pleasure of working with."
-}: TestimonialsSectionProps = {}) {
+  description = "Hear from some of the amazing clients I've had the pleasure of working with.",
+  ...props
+}: TestimonialsSectionProps) {
+  // Default testimonials and columns based on variant
+  const testimonials = 'testimonials' in props ? props.testimonials || defaultTestimonials :
+                     'testimonial' in props ? [props.testimonial] : defaultTestimonials;
+  const columns = variant === 'grid' && 'columns' in props ? props.columns || 3 : 3;
   return (
     <section className="py-20 bg-muted/50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,10 +96,10 @@ export function TestimonialsSection({
                 {/* Author */}
                 <div className="flex items-center space-x-4 pt-4 border-t">
                   <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                    <Image
+                    <Avatar
                       src={testimonial.avatar}
-                      alt={testimonial.name}
-                      fill
+                      name={testimonial.name}
+                      size={48}
                       className="object-cover"
                     />
                   </div>

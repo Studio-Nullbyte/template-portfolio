@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import type { NavItem } from "@/types";
 
 interface NavLinksProps {
-  items: NavItem[];
+  items: readonly NavItem[];
   className?: string;
   linkClassName?: string;
   orientation?: 'horizontal' | 'vertical';

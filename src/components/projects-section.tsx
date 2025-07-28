@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-import Image from "next/image";
+import { ProjectImage } from "./ui/SafeImage";
 import Link from "next/link";
 import { useState } from "react";
 import type { ProjectCategory } from "@/types";
@@ -77,9 +77,9 @@ export function ProjectsSection() {
             >
               <div className="relative aspect-video overflow-hidden">
                 <Link href={`/projects/${project.id}`} className="block absolute inset-0 z-10">
-                  <Image
+                  <ProjectImage
                     src={project.image}
-                    alt={project.title}
+                    title={project.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />

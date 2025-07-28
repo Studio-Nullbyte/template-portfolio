@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { SafeImage } from "@/components/ui/SafeImage";
 import { Download, MapPin, Calendar } from "lucide-react";
 import { SectionErrorBoundary, ComponentErrorBoundary } from "@/components/error-boundaries";
 
@@ -83,11 +83,13 @@ export default function About() {
                   className="relative"
                 >
                   <div className="relative w-full aspect-square max-w-md mx-auto">
-                    <Image
-                      src="/api/placeholder/400/400"
+                    <SafeImage
+                      src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=4f46e5&radius=20&size=400"
                       alt="Alex Johnson"
                       fill
                       className="object-cover rounded-2xl"
+                      fallbackType="avatar"
+                      fallbackSeed="Alex Johnson"
                     />
                   </div>
                 </motion.div>

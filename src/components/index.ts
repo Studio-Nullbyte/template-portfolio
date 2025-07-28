@@ -19,3 +19,6 @@ export {
   useErrorHandler,
   useErrorBoundaryContext
 } from "./error-boundaries";
+
+// UI components
+export { SafeImage, Avatar, ProjectImage } from './ui/SafeImage';
