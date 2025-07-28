@@ -66,11 +66,7 @@ export function TestimonialsSection({
           </p>
         </motion.div>
 
-        <div className={`grid gap-8 ${
-          columns === 1 ? 'grid-cols-1' :
-          columns === 2 ? 'grid-cols-1 md:grid-cols-2' :
-          'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-        }`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial: Testimonial, index: number) => (
             <motion.div
               key={testimonial.id}

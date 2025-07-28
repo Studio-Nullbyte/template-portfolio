@@ -9,16 +9,16 @@ import type {
 /**
  * Generic form validation hook with strict typing
  */
-export function useFormValidation<T>(
+export function useFormValidation<T extends Record<string, any>>(
   initialValues: T,
-  validationRules: Record<keyof T, (value: T[keyof T]) => string | null>
+  validationRules: Record<keyof T, (value: any) => string | null>
 ): UseFormValidationReturn<T> {
   const [formData, setFormData] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [touchedFields, setTouchedFields] = useState<Partial<Record<keyof T, boolean>>>({});
 
-  const validateField = useCallback((field: keyof T, value: T[keyof T]): string | null => {
+  const validateField = useCallback((field: keyof T, value: any): string | null => {
     const rule = validationRules[field];
     return rule ? rule(value) : null;
   }, [validationRules]);

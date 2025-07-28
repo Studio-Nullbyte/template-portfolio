@@ -7,24 +7,31 @@ const defaultSocialLinks: SocialLink[] = [
   {
     name: "GitHub",
     url: "https://github.com",
-    icon: Github,
+    icon: "Github",
   },
   {
     name: "LinkedIn",
     url: "https://linkedin.com",
-    icon: Linkedin,
+    icon: "Linkedin",
   },
   {
     name: "Twitter",
     url: "https://twitter.com",
-    icon: Twitter,
+    icon: "Twitter",
   },
   {
     name: "Email",
     url: "mailto:contact@example.com",
-    icon: Mail,
+    icon: "Mail",
   },
 ];
+
+const iconMap = {
+  Github,
+  Linkedin,
+  Twitter,
+  Mail,
+} as const;
 
 export function Footer({
   className = "",
@@ -78,7 +85,7 @@ export function Footer({
               <h3 className="text-lg font-semibold text-foreground">Connect</h3>
               <div className="flex space-x-4">
                 {defaultSocialLinks.map((link: SocialLink) => {
-                  const Icon = link.icon;
+                  const Icon = iconMap[link.icon as keyof typeof iconMap];
                   return (
                     <a
                       key={link.name}

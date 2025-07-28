@@ -94,21 +94,12 @@ export const FormField = forwardRef<
         {required && <span className="text-red-500 ml-1" aria-label="required">*</span>}
       </label>
 
-      {Component === 'textarea' ? (
-        <textarea
-          ref={ref as React.Ref<HTMLTextAreaElement>}
-          {...(inputProps as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          onChange={handleChange}
-          className={fieldClasses}
-        />
-      ) : (
-        <input
-          ref={ref as React.Ref<HTMLInputElement>}
-          {...(inputProps as React.InputHTMLAttributes<HTMLInputElement>)}
-          onChange={handleChange}
-          className={fieldClasses}
-        />
-      )}
+      <Component
+        ref={ref as any} // Type assertion needed due to union type
+        {...inputProps}
+        onChange={handleChange}
+        className={fieldClasses}
+      />
 
       {error && (
         <p id={`${name}-error`} className="text-sm text-red-600" role="alert">

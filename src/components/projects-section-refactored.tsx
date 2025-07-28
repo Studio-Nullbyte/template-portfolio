@@ -40,7 +40,7 @@ export function ProjectsSection() {
         </motion.div>
 
         {/* Projects Grid */}
-        <ProjectGrid projects={[...filteredProjects]} />
+        <ProjectGrid projects={filteredProjects} />
       </div>
     </section>
   );

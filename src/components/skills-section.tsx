@@ -43,20 +43,11 @@ const defaultSkillCategories: SkillCategoryData[] = [
   },
 ];
 
-export function SkillsSection(props: SkillsSectionProps = { variant: 'categories' }) {
-  // Extract common properties
-  const { variant = 'categories', title = "Skills & Technologies", description = "A comprehensive overview of the technologies and tools I use to bring ideas to life." } = props;
-
-  // Handle discriminated union properly
-  let skills: readonly SkillCategoryData[];
-
-  if (variant === 'categories') {
-    const categoriesVariantProps = props as Extract<SkillsSectionProps, { variant: 'categories' }>;
-    skills = categoriesVariantProps.skills ?? defaultSkillCategories;
-  } else {
-    // For other variants, use default skills (this component seems designed for categories variant)
-    skills = defaultSkillCategories;
-  }
+export function SkillsSection({
+  skills = defaultSkillCategories,
+  title = "Skills & Technologies",
+  description = "A comprehensive overview of the technologies and tools I use to bring ideas to life."
+}: SkillsSectionProps = {}) {
   return (
     <section className="py-16 bg-background" id="skills">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

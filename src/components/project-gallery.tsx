@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Project } from "@/types";
 
@@ -32,7 +33,7 @@ export default function ProjectGallery({ project }: ProjectGalleryProps) {
           className="object-cover"
           priority
         />
-
+        
         {projectImages.length > 1 && (
           <>
             <button
@@ -42,7 +43,7 @@ export default function ProjectGallery({ project }: ProjectGalleryProps) {
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
-
+            
             <button
               onClick={nextImage}
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"

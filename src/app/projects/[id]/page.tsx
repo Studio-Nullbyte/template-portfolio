@@ -12,12 +12,11 @@ export async function generateStaticParams() {
 }
 
 interface ProjectDetailProps {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
 
-export default async function ProjectDetail({ params }: ProjectDetailProps) {
-  const { id } = await params;
-  const project = projects.find(p => p.id === id);
+export default function ProjectDetail({ params }: ProjectDetailProps) {
+  const project = projects.find(p => p.id === params.id);
 
   if (!project) {
     notFound();

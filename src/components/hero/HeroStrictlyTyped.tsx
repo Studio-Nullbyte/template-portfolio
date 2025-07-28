@@ -173,7 +173,6 @@ export const HeroStrictlyTyped = forwardRef<HTMLElement, HeroProps>(
 
       default: {
         // TypeScript exhaustive check - this ensures we handle all variants
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const _exhaustiveCheck: never = props;
         return null;
       }

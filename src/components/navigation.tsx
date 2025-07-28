@@ -23,7 +23,8 @@ export function Navigation(props: NavigationProps) {
   const {
     items = defaultNavItems,
     className = "",
-    showLogo = true
+    showLogo = true,
+    sticky = true
   } = props;
   const { isOpen, toggleMenu } = useMobileNavigation();
   const scrolled = useScrollDetection(50);
